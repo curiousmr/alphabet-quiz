@@ -2,10 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no" />
-<title>Alphabet & Math Fun Quiz for Kids</title>
-<meta name="theme-color" content="#0984e3" />
-<link rel="manifest" href="manifest.json" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Fun Alphabet & Math Quiz for Kids | Interactive Learning App</title>
+<meta name="description" content="An interactive and fun quiz app for kids to learn alphabets and math. Features engaging quizzes, multiple question types, sound, and visual feedback." />
+<meta name="keywords" content="kids learning app, alphabet quiz, math quiz, educational games for kids, interactive learning, fun quizzes" />
+<meta name="author" content="Your Name or Your Brand" />
+<link rel="canonical" href="https://yourdomain.com/alphabet-math-quiz" />
+<meta property="og:title" content="Fun Alphabet & Math Quiz for Kids | Interactive Learning App" />
+<meta property="og:description" content="Learn alphabets and math with fun quizzes, sounds, and rewards. Perfect for children starting their learning journey." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://yourdomain.com/alphabet-math-quiz" />
+<meta property="og:image" content="https://yourdomain.com/assets/quiz-preview.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Fun Alphabet & Math Quiz for Kids | Interactive Learning App" />
+<meta name="twitter:description" content="Learn alphabets and math with fun quizzes, sounds, and rewards. Perfect for children starting their learning journey." />
+<meta name="twitter:image" content="https://yourdomain.com/assets/quiz-preview.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalApplication",
+  "name": "Fun Alphabet & Math Quiz for Kids",
+  "url": "https://yourdomain.com/alphabet-math-quiz",
+  "description": "An app offering engaging quizzes for kids to learn alphabets and math with interactive features and rewards.",
+  "applicationCategory": "EducationApplication",
+  "operatingSystem": "Web",
+  "audience": {
+    "@type": "Audience",
+    "educationalRole": "student",
+    "geographicArea": "Worldwide"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
 
@@ -19,9 +53,28 @@
     color: #2d3436;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     padding: 20px;
+    overflow-x: hidden;
+  }
+  header, footer {
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  header h1 {
+    color: #0984e3;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    font-size: 2.8rem;
+    margin: 0;
+  }
+  footer p {
+    color: #636e72;
+    font-size: 0.9rem;
+    margin: 0 0 30px 0;
   }
   .container {
     background: #fff;
@@ -31,8 +84,9 @@
     max-width: 480px;
     padding: 40px 35px 50px 35px;
     text-align: center;
+    position: relative;
   }
-  h1, h2 {
+  h2 {
     margin: 0 0 15px 0;
     color: #0984e3;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
@@ -65,6 +119,7 @@
   }
   button {
     cursor: pointer;
+    user-select: none;
   }
   /* Main buttons */
   #start-btn, #nav-alphabet, #nav-math, #btn-after, #btn-before, #btn-fill-blank,
@@ -81,7 +136,6 @@
     border-radius: 20px;
     color: white;
     font-weight: 700;
-    user-select: none;
     box-shadow: 0 6px 15px rgba(116,185,255,0.7);
     transition: background-color 0.3s ease, transform 0.2s ease;
   }
@@ -105,7 +159,6 @@
     border-radius: 20px;
     color: white;
     font-weight: 700;
-    user-select: none;
     box-shadow: 0 6px 15px rgba(9,132,227,0.7);
     transition: background-color 0.3s ease, transform 0.2s ease;
     cursor: pointer;
@@ -150,10 +203,7 @@
     font-size: 1.75rem;
     font-weight: 700;
     color: #fff;
-    cursor: pointer;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
     transition: background-color 0.3s ease, transform 0.2s ease;
-    user-select: none;
   }
   button.option-btn:hover {
     background-color: #0984e3;
@@ -162,6 +212,7 @@
   button.option-btn.correct {
     background-color: #00b894;
     box-shadow: 0 6px 20px rgba(0, 184, 148, 0.7);
+    animation: pulse 0.8s ease-in-out;
   }
   button.option-btn.incorrect {
     background-color: #d63031;
@@ -170,6 +221,11 @@
   button.option-btn:disabled {
     cursor: default;
     pointer-events: none;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1);}
   }
   #feedback {
     font-size: 1.4rem;
@@ -186,12 +242,9 @@
     border-radius: 20px;
     color: white;
     font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 6px 15px rgba(253, 121, 168, 0.5);
-    transition: background-color 0.3s ease, transform 0.2s ease;
     user-select: none;
-    display: inline-block;
-    margin: 0 15px 0 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 15px;
   }
   #next-btn:hover {
     background-color: #d6306e;
@@ -236,88 +289,79 @@
     .container {
       padding: 30px 25px 40px 25px;
     }
-    h1#title {
-      font-size: 2.4rem;
-    }
-    #welcome-screen h1 {
-      font-size: 2.6rem;
-    }
-    #name-input {
+    #quiz-back-btn, #next-btn {
       font-size: 1.3rem;
-    }
-    #start-btn {
-      font-size: 1.4rem;
-      padding: 12px 30px;
-    }
-    #question {
-      font-size: 1.7rem;
-    }
-    button.option-btn {
-      font-size: 1.4rem;
-      padding: 12px 0;
-    }
-    #next-btn, #quiz-back-btn {
-      font-size: 1.3rem;
-      padding: 12px 30px;
-    }
-    #restart-btn, #nav-alphabet, #nav-math, #btn-after, #btn-before, #btn-fill-blank, #btn-before-math, #btn-after-math, #btn-fill-blank-math, #back-to-categories-alphabet, #back-to-categories-math {
-      font-size: 1.4rem;
-      padding: 12px 35px;
+      padding: 12px 25px;
     }
   }
 </style>
 </head>
 <body>
 
-<div class="container" id="welcome-screen" role="main" aria-live="polite">
-  <h1>Welcome to the Fun Learning Quiz!</h1>
-  <p>Please enter your name to start:</p>
-  <input type="text" id="name-input" aria-label="Enter your name" placeholder="Your Name" />
-  <br />
-  <button id="start-btn" disabled>Start</button>
-</div>
+<header>
+  <h1>Fun Alphabet & Math Quiz for Kids</h1>
+</header>
 
-<div class="container" id="navigation-screen" role="main" aria-live="polite" style="display:none;">
-  <h2>Hi <span id="nav-user-name"></span>! Choose a quiz category:</h2>
-  <button id="nav-alphabet">Alphabet Quiz</button>
-  <button id="nav-math">Math Quiz</button>
-</div>
+<main>
+  <!-- Welcome Screen -->
+  <section class="container" id="welcome-screen" role="main" aria-live="polite">
+    <p>Please enter your name to start:</p>
+    <input type="text" id="name-input" aria-label="Enter your name" placeholder="Your Name" />
+    <br />
+    <button id="start-btn" disabled>Start</button>
+  </section>
 
-<div class="container" id="alphabet-type-screen" role="main" aria-live="polite" style="display:none;">
-  <h2>Alphabet Quiz: Choose Question Type</h2>
-  <button id="btn-after">What comes AFTER the letter?</button>
-  <button id="btn-before">What comes BEFORE the letter?</button>
-  <button id="btn-fill-blank">Fill in the Blank letter</button>
-  <button id="back-to-categories-alphabet">Back</button>
-</div>
+  <!-- Navigation Screen -->
+  <section class="container" id="navigation-screen" role="main" aria-live="polite" style="display:none;">
+    <h2>Hi <span id="nav-user-name"></span>! Choose a quiz category:</h2>
+    <button id="nav-alphabet">Alphabet Quiz</button>
+    <button id="nav-math">Math Quiz</button>
+  </section>
 
-<div class="container" id="math-type-screen" role="main" aria-live="polite" style="display:none;">
-  <h2>Math Quiz: Choose Question Type</h2>
-  <button id="btn-after-math">What comes AFTER the number?</button>
-  <button id="btn-before-math">What comes BEFORE the number?</button>
-  <button id="btn-fill-blank-math">Fill in the Blank number</button>
-  <button id="back-to-categories-math">Back</button>
-</div>
+  <!-- Alphabet Question Type Screen -->
+  <section class="container" id="alphabet-type-screen" role="main" aria-live="polite" style="display:none;">
+    <h2>Alphabet Quiz: Choose Question Type</h2>
+    <button id="btn-after">What comes AFTER the letter?</button>
+    <button id="btn-before">What comes BEFORE the letter?</button>
+    <button id="btn-fill-blank">Fill in the Blank letter</button>
+    <button id="back-to-categories-alphabet">Back</button>
+  </section>
 
-<div class="container" id="quiz-screen" role="main" aria-live="polite" style="display:none;">
-  <h2 id="greeting"></h2>
-  <div id="current-question-number"></div>
-  <div id="question" aria-label="Question area">Loading...</div>
-  <div id="options" role="list"></div>
-  <div id="feedback" aria-live="assertive"></div>
-  <div style="margin-top:10px;">
-    <button id="quiz-back-btn">Back</button>
-    <button id="next-btn" aria-label="Next question button">Next</button>
-  </div>
-  <div id="scoreboard" aria-live="polite" style="margin-top:15px;"></div>
-</div>
+  <!-- Math Question Type Screen -->
+  <section class="container" id="math-type-screen" role="main" aria-live="polite" style="display:none;">
+    <h2>Math Quiz: Choose Question Type</h2>
+    <button id="btn-after-math">What comes AFTER the number?</button>
+    <button id="btn-before-math">What comes BEFORE the number?</button>
+    <button id="btn-fill-blank-math">Fill in the Blank number</button>
+    <button id="back-to-categories-math">Back</button>
+  </section>
 
-<div class="container" id="final-score" role="main" aria-live="polite" style="display:none;">
-  <h2>Quiz Completed!</h2>
-  <div id="final-score-message"></div>
-  <div id="final-emotion"></div>
-  <button id="restart-btn">Restart Quiz</button>
-</div>
+  <!-- Quiz Screen -->
+  <section class="container" id="quiz-screen" role="main" aria-live="polite" style="display:none;">
+    <h2 id="greeting"></h2>
+    <div id="current-question-number"></div>
+    <div id="question" aria-label="Question area">Loading...</div>
+    <div id="options" role="list"></div>
+    <div id="feedback" aria-live="assertive"></div>
+    <div style="margin-top:10px;">
+      <button id="quiz-back-btn" aria-label="Back to question types">Back</button>
+      <button id="next-btn" aria-label="Next question button">Next</button>
+    </div>
+    <div id="scoreboard" aria-live="polite" style="margin-top:15px;"></div>
+  </section>
+
+  <!-- Final Score Screen -->
+  <section class="container" id="final-score" role="main" aria-live="polite" style="display:none;">
+    <h2>Quiz Completed!</h2>
+    <div id="final-score-message"></div>
+    <div id="final-emotion"></div>
+    <button id="restart-btn">Restart Quiz</button>
+  </section>
+</main>
+
+<footer>
+  <p>© 2024 Your Brand. All rights reserved.</p>
+</footer>
 
 <audio id="correct-sound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
 <audio id="wrong-sound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
@@ -327,13 +371,7 @@
   const TOTAL_QUESTIONS = 15;
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
   const maxMathNumber = 20;
-
-  const userData = {
-    name: '',
-    category: '',
-    quizType: '',
-  };
-
+  const userData = { name: '', category: '', quizType: '' };
   let currentQuestion = null;
   let score = 0;
   let totalQuestions = 0;
@@ -487,7 +525,7 @@
     let seq = alphabet.slice(startIndex, startIndex + 3);
     let missingIndex = 1 + Math.floor(Math.random() * 2);
     let correctAnswer = seq[missingIndex];
-    let displaySeq = seq.map((l, i) => i === missingIndex ? '_' : l).join('');
+    let displaySeq = seq.map((l, i) => i === missingIndex ? '_' : l).join(', ');
     let questionText = `Fill in the blank in: <span aria-label="letters">${displaySeq}</span>. What letter goes in the blank?`;
     let options = new Set();
     options.add(correctAnswer);
@@ -522,10 +560,10 @@
   }
   function generateMathFillBlankQuestion() {
     let startNum = Math.floor(Math.random() * (maxMathNumber - 2)) + 1;
-    let seq = [startNum, startNum+1, startNum+2].map(n=>n.toString());
+    let seq = [startNum, startNum + 1, startNum + 2].map(n => n.toString());
     let missingIndex = Math.floor(Math.random() * 3);
     let correctAnswer = seq[missingIndex];
-    let displaySeq = seq.map((n,i)=>i===missingIndex?'_':n).join('');
+    let displaySeq = seq.map((n, i) => i === missingIndex ? '_' : n).join(', ');
     let questionText = `Fill in the blank in: <span aria-label="numbers">${displaySeq}</span>. What number goes in the blank?`;
     let options = new Set();
     options.add(correctAnswer);
@@ -566,8 +604,8 @@
     if(selectedAnswer === currentQuestion.correctAnswer) {
       feedbackEl.textContent = "Good job! That's correct 🎉";
       selectedBtn.classList.add('correct', 'bounce');
-      score++;
       playCorrectSound();
+      score++;
     } else {
       feedbackEl.textContent = `Oops! The correct answer is "${currentQuestion.correctAnswer}"`;
       selectedBtn.classList.add('incorrect');
@@ -592,6 +630,7 @@
       return;
     }
     questionEl.innerHTML = currentQuestion.questionText;
+    speak(currentQuestion.questionText);
     currentQuestion.options.forEach(opt => {
       const btn = document.createElement('button');
       btn.classList.add('option-btn');
@@ -599,7 +638,10 @@
       btn.setAttribute('data-letter', opt);
       btn.setAttribute('role', 'listitem');
       btn.setAttribute('aria-label', `Option ${opt}`);
-      btn.addEventListener('click', handleOptionClick);
+      btn.addEventListener('click', () => {
+        handleOptionClick(event);
+        speak(opt);
+      });
       optionsEl.appendChild(btn);
     });
   }
@@ -614,6 +656,7 @@
       return;
     }
     questionEl.innerHTML = currentQuestion.questionText;
+    speak(currentQuestion.questionText);
     currentQuestion.options.forEach(opt => {
       const btn = document.createElement('button');
       btn.classList.add('option-btn');
@@ -621,7 +664,10 @@
       btn.setAttribute('data-letter', opt);
       btn.setAttribute('role', 'listitem');
       btn.setAttribute('aria-label', `Option ${opt}`);
-      btn.addEventListener('click', handleOptionClick);
+      btn.addEventListener('click', () => {
+        handleOptionClick(event);
+        speak(opt);
+      });
       optionsEl.appendChild(btn);
     });
   }
@@ -717,7 +763,15 @@
     wrongSound.currentTime = 0;
     wrongSound.play();
   }
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g, '').replace(/_/g, 'blank'));
+      window.speechSynthesis.speak(utterance);
+    }
+  }
 })();
 </script>
+
 </body>
 </html>
