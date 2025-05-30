@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no" />
-<title>Alphabet Quiz for Kids - Fun Learning</title>
+<title>Alphabet & Math Fun Quiz for Kids</title>
 <meta name="theme-color" content="#0984e3" />
 <link rel="manifest" href="manifest.json" />
 <style>
@@ -12,52 +12,136 @@
   * {
     box-sizing: border-box;
   }
-
   body {
     margin: 0;
     background: #ffffff;
     font-family: 'Comic Neue', cursive, Arial, sans-serif;
     color: #2d3436;
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
+    display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
   }
-
-  h1 {
-    font-size: 3rem;
-    text-align: center;
-    margin-bottom: 10px;
-    color: #0984e3;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-  }
-
-  #game-container {
+  .container {
     background: #fff;
     border-radius: 25px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 480px;
-    padding: 25px 30px 40px 30px;
+    padding: 40px 35px 50px 35px;
     text-align: center;
   }
-
+  h1, h2 {
+    margin: 0 0 15px 0;
+    color: #0984e3;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  }
+  button, input[type="text"], select {
+    font-family: inherit;
+  }
+  #welcome-screen h1 {
+    font-size: 3rem;
+  }
+  #welcome-screen p {
+    font-size: 1.25rem;
+    margin-bottom: 25px;
+  }
+  input, button {
+    outline-offset: 2px;
+  }
+  #name-input {
+    font-size: 1.5rem;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 2px solid #74b9ff;
+    width: 80%;
+    max-width: 300px;
+    margin-bottom: 30px;
+    transition: border-color 0.3s ease;
+  }
+  #name-input:focus {
+    border-color: #0984e3;
+  }
+  button {
+    cursor: pointer;
+  }
+  /* Main buttons */
+  #start-btn, #nav-alphabet, #nav-math, #btn-after, #btn-before, #btn-fill-blank,
+  #btn-before-math, #btn-after-math, #btn-fill-blank-math, 
+  #back-to-categories-alphabet, #back-to-categories-math {
+    background-color: #74b9ff;
+    border: none;
+    padding: 15px 35px;
+    margin: 10px auto;
+    display: block;
+    width: 80%;
+    max-width: 300px;
+    font-size: 1.6rem;
+    border-radius: 20px;
+    color: white;
+    font-weight: 700;
+    user-select: none;
+    box-shadow: 0 6px 15px rgba(116,185,255,0.7);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  #start-btn:disabled {
+    background-color: #a3c4ff;
+    cursor: default;
+  }
+  #start-btn:hover:not(:disabled), #nav-alphabet:hover, #nav-math:hover,
+  #btn-after:hover, #btn-before:hover, #btn-fill-blank:hover,
+  #btn-before-math:hover, #btn-after-math:hover, #btn-fill-blank-math:hover,
+  #back-to-categories-alphabet:hover, #back-to-categories-math:hover {
+    background-color: #0984e3;
+    transform: scale(1.05);
+  }
+  /* Additional Back button on quiz screen */
+  #quiz-back-btn {
+    background-color: #0984e3;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.4rem;
+    border-radius: 20px;
+    color: white;
+    font-weight: 700;
+    user-select: none;
+    box-shadow: 0 6px 15px rgba(9,132,227,0.7);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  #quiz-back-btn:hover {
+    background-color: #065ea0;
+    transform: scale(1.05);
+  }
+  #navigation-screen, #alphabet-type-screen, #math-type-screen, #quiz-screen, #final-score {
+    display: none;
+  }
+  /* Quiz Screen Styles */
+  #greeting {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #2d3436;
+  }
+  #current-question-number {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #636e72;
+  }
   #question {
     font-size: 2rem;
     margin-bottom: 25px;
     color: #2d3436;
     min-height: 60px;
   }
-
   #options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 18px;
     margin-bottom: 25px;
   }
-
   button.option-btn {
     background: #74b9ff;
     border: none;
@@ -87,15 +171,13 @@
     cursor: default;
     pointer-events: none;
   }
-
   #feedback {
     font-size: 1.4rem;
     min-height: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-weight: 600;
     color: #2d3436;
   }
-
   #next-btn {
     background-color: #fd79a8;
     border: none;
@@ -108,237 +190,534 @@
     box-shadow: 0 6px 15px rgba(253, 121, 168, 0.5);
     transition: background-color 0.3s ease, transform 0.2s ease;
     user-select: none;
-    display: none;
-    margin: 0 auto;
+    display: inline-block;
+    margin: 0 15px 0 15px;
   }
   #next-btn:hover {
     background-color: #d6306e;
     transform: scale(1.07);
   }
-
   #scoreboard {
     margin-top: 30px;
     font-size: 1.3rem;
     color: #2d3436;
   }
-
-  /* Fun bouncing animation for correct answers */
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+  #final-score {
+    display: none;
+    font-size: 1.5rem;
+    margin-top: 20px;
   }
-  .bounce {
-    animation: bounce 0.6s ease;
+  #final-emotion {
+    font-size: 3rem;
+    margin-top: 15px;
   }
-
+  #restart-btn {
+    background-color: #74b9ff;
+    border: none;
+    padding: 15px 45px;
+    font-size: 1.6rem;
+    border-radius: 25px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(116,185,255,0.7);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    user-select: none;
+    margin-top: 25px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #restart-btn:hover {
+    background-color: #0984e3;
+    transform: scale(1.08);
+  }
   @media (max-width: 520px) {
-    #game-container {
-      padding: 20px;
+    .container {
+      padding: 30px 25px 40px 25px;
+    }
+    h1#title {
+      font-size: 2.4rem;
+    }
+    #welcome-screen h1 {
+      font-size: 2.6rem;
+    }
+    #name-input {
+      font-size: 1.3rem;
+    }
+    #start-btn {
+      font-size: 1.4rem;
+      padding: 12px 30px;
+    }
+    #question {
+      font-size: 1.7rem;
     }
     button.option-btn {
       font-size: 1.4rem;
       padding: 12px 0;
     }
-    #question {
-      font-size: 1.6rem;
-    }
-    #next-btn {
+    #next-btn, #quiz-back-btn {
       font-size: 1.3rem;
       padding: 12px 30px;
+    }
+    #restart-btn, #nav-alphabet, #nav-math, #btn-after, #btn-before, #btn-fill-blank, #btn-before-math, #btn-after-math, #btn-fill-blank-math, #back-to-categories-alphabet, #back-to-categories-math {
+      font-size: 1.4rem;
+      padding: 12px 35px;
     }
   }
 </style>
 </head>
 <body>
-  <h1>Alphabet Fun Quiz!</h1>
-  <div id="game-container" role="main" aria-live="polite">
-    <div id="question" aria-label="Question area">Loading...</div>
-    <div id="options" role="list"></div>
-    <div id="feedback" aria-live="assertive"></div>
-    <button id="next-btn" aria-label="Next question button">Next</button>
-    <div id="scoreboard" aria-live="polite"></div>
-  </div>
 
-  <audio id="correct-sound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
-  <audio id="wrong-sound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
+<div class="container" id="welcome-screen" role="main" aria-live="polite">
+  <h1>Welcome to the Fun Learning Quiz!</h1>
+  <p>Please enter your name to start:</p>
+  <input type="text" id="name-input" aria-label="Enter your name" placeholder="Your Name" />
+  <br />
+  <button id="start-btn" disabled>Start</button>
+</div>
+
+<div class="container" id="navigation-screen" role="main" aria-live="polite" style="display:none;">
+  <h2>Hi <span id="nav-user-name"></span>! Choose a quiz category:</h2>
+  <button id="nav-alphabet">Alphabet Quiz</button>
+  <button id="nav-math">Math Quiz</button>
+</div>
+
+<div class="container" id="alphabet-type-screen" role="main" aria-live="polite" style="display:none;">
+  <h2>Alphabet Quiz: Choose Question Type</h2>
+  <button id="btn-after">What comes AFTER the letter?</button>
+  <button id="btn-before">What comes BEFORE the letter?</button>
+  <button id="btn-fill-blank">Fill in the Blank letter</button>
+  <button id="back-to-categories-alphabet">Back</button>
+</div>
+
+<div class="container" id="math-type-screen" role="main" aria-live="polite" style="display:none;">
+  <h2>Math Quiz: Choose Question Type</h2>
+  <button id="btn-after-math">What comes AFTER the number?</button>
+  <button id="btn-before-math">What comes BEFORE the number?</button>
+  <button id="btn-fill-blank-math">Fill in the Blank number</button>
+  <button id="back-to-categories-math">Back</button>
+</div>
+
+<div class="container" id="quiz-screen" role="main" aria-live="polite" style="display:none;">
+  <h2 id="greeting"></h2>
+  <div id="current-question-number"></div>
+  <div id="question" aria-label="Question area">Loading...</div>
+  <div id="options" role="list"></div>
+  <div id="feedback" aria-live="assertive"></div>
+  <div style="margin-top:10px;">
+    <button id="quiz-back-btn">Back</button>
+    <button id="next-btn" aria-label="Next question button">Next</button>
+  </div>
+  <div id="scoreboard" aria-live="polite" style="margin-top:15px;"></div>
+</div>
+
+<div class="container" id="final-score" role="main" aria-live="polite" style="display:none;">
+  <h2>Quiz Completed!</h2>
+  <div id="final-score-message"></div>
+  <div id="final-emotion"></div>
+  <button id="restart-btn">Restart Quiz</button>
+</div>
+
+<audio id="correct-sound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+<audio id="wrong-sound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
 
 <script>
-  (function() {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-    let currentQuestion = null;
-    let score = 0;
-    let totalQuestions = 0;
-    let backgroundUtterance;
-    let backgroundSpeaking = false;
+(function(){
+  const TOTAL_QUESTIONS = 15;
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  const maxMathNumber = 20;
 
-    const questionEl = document.getElementById('question');
-    const optionsEl = document.getElementById('options');
-    const feedbackEl = document.getElementById('feedback');
-    const nextBtn = document.getElementById('next-btn');
-    const scoreboardEl = document.getElementById('scoreboard');
-    const correctSound = document.getElementById('correct-sound');
-    const wrongSound = document.getElementById('wrong-sound');
+  const userData = {
+    name: '',
+    category: '',
+    quizType: '',
+  };
 
-    // Start peaceful background voice using Web Speech API
-    function startBackgroundVoice() {
-      if (!('speechSynthesis' in window)) return; // Not supported
-      if(backgroundSpeaking) return;
+  let currentQuestion = null;
+  let score = 0;
+  let totalQuestions = 0;
 
-      backgroundSpeaking = true;
-      backgroundUtterance = new SpeechSynthesisUtterance("Let's learn the alphabets slowly and have fun!");
-      backgroundUtterance.lang = 'en-US';
-      backgroundUtterance.rate = 0.7; // Slow speaking
-      backgroundUtterance.volume = 0.15; // Low volume
-      backgroundUtterance.pitch = 0.8;
+  // Elements
+  const welcomeScreen = document.getElementById('welcome-screen');
+  const nameInput = document.getElementById('name-input');
+  const startBtn = document.getElementById('start-btn');
 
-      backgroundUtterance.onend = () => {
-        // Repeat with a delay of 3 seconds
-        setTimeout(() => {
-          if(backgroundSpeaking) {
-            window.speechSynthesis.speak(backgroundUtterance);
-          }
-        }, 3000);
-      };
+  const navigationScreen = document.getElementById('navigation-screen');
+  const navUserNameSpan = document.getElementById('nav-user-name');
+  const navAlphabetBtn = document.getElementById('nav-alphabet');
+  const navMathBtn = document.getElementById('nav-math');
 
-      window.speechSynthesis.speak(backgroundUtterance);
+  const alphabetTypeScreen = document.getElementById('alphabet-type-screen');
+  const btnAfter = document.getElementById('btn-after');
+  const btnBefore = document.getElementById('btn-before');
+  const btnFillBlank = document.getElementById('btn-fill-blank');
+  const backToCategoriesFromAlphabet = document.getElementById('back-to-categories-alphabet');
+
+  const mathTypeScreen = document.getElementById('math-type-screen');
+  const btnAfterMath = document.getElementById('btn-after-math');
+  const btnBeforeMath = document.getElementById('btn-before-math');
+  const btnFillBlankMath = document.getElementById('btn-fill-blank-math');
+  const backToCategoriesFromMath = document.getElementById('back-to-categories-math');
+
+  const quizScreen = document.getElementById('quiz-screen');
+  const greetingEl = document.getElementById('greeting');
+  const currentQuestionNumberEl = document.getElementById('current-question-number');
+  const questionEl = document.getElementById('question');
+  const optionsEl = document.getElementById('options');
+  const feedbackEl = document.getElementById('feedback');
+  const nextBtn = document.getElementById('next-btn');
+  const quizBackBtn = document.getElementById('quiz-back-btn');
+  const scoreboardEl = document.getElementById('scoreboard');
+
+  const finalScoreScreen = document.getElementById('final-score');
+  const finalScoreMessage = document.getElementById('final-score-message');
+  const finalEmotion = document.getElementById('final-emotion');
+  const restartBtn = document.getElementById('restart-btn');
+
+  const correctSound = document.getElementById('correct-sound');
+  const wrongSound = document.getElementById('wrong-sound');
+
+  // Welcome screen events
+  nameInput.addEventListener('input', () => {
+    startBtn.disabled = nameInput.value.trim().length === 0;
+  });
+  startBtn.addEventListener('click', () => {
+    userData.name = nameInput.value.trim();
+    if(!userData.name) return;
+    welcomeScreen.style.display = 'none';
+    navigationScreen.style.display = 'block';
+    navUserNameSpan.textContent = userData.name;
+  });
+
+  // Navigation screen events
+  navAlphabetBtn.addEventListener('click', () => {
+    userData.category = 'alphabet';
+    navigationScreen.style.display = 'none';
+    alphabetTypeScreen.style.display = 'block';
+  });
+  navMathBtn.addEventListener('click', () => {
+    userData.category = 'math';
+    navigationScreen.style.display = 'none';
+    mathTypeScreen.style.display = 'block';
+  });
+
+  // Alphabet type screen events
+  btnAfter.addEventListener('click', () => {
+    userData.quizType = 'alphabet-after';
+    alphabetTypeScreen.style.display = 'none';
+    startAlphabetQuiz('after');
+  });
+  btnBefore.addEventListener('click', () => {
+    userData.quizType = 'alphabet-before';
+    alphabetTypeScreen.style.display = 'none';
+    startAlphabetQuiz('before');
+  });
+  btnFillBlank.addEventListener('click', () => {
+    userData.quizType = 'alphabet-fill-blank';
+    alphabetTypeScreen.style.display = 'none';
+    startAlphabetFillBlankQuiz();
+  });
+  backToCategoriesFromAlphabet.addEventListener('click', () => {
+    alphabetTypeScreen.style.display = 'none';
+    navigationScreen.style.display = 'block';
+  });
+
+  // Math type screen events
+  btnAfterMath.addEventListener('click', () => {
+    userData.quizType = 'math-after';
+    mathTypeScreen.style.display = 'none';
+    startMathQuiz('after');
+  });
+  btnBeforeMath.addEventListener('click', () => {
+    userData.quizType = 'math-before';
+    mathTypeScreen.style.display = 'none';
+    startMathQuiz('before');
+  });
+  btnFillBlankMath.addEventListener('click', () => {
+    userData.quizType = 'math-fill-blank';
+    mathTypeScreen.style.display = 'none';
+    startMathFillBlankQuiz();
+  });
+  backToCategoriesFromMath.addEventListener('click', () => {
+    mathTypeScreen.style.display = 'none';
+    navigationScreen.style.display = 'block';
+  });
+
+  // Quiz Back button event
+  quizBackBtn.addEventListener('click', () => {
+    quizScreen.style.display = 'none';
+    feedbackEl.textContent = '';
+    nextBtn.style.display = 'none';
+    totalQuestions = 0;
+    score = 0;
+
+    if(userData.category === 'alphabet') {
+      alphabetTypeScreen.style.display = 'block';
+    } else if(userData.category === 'math') {
+      mathTypeScreen.style.display = 'block';
     }
+  });
 
-    // Stop the background voice
-    function stopBackgroundVoice() {
-      if (!('speechSynthesis' in window)) return;
-      backgroundSpeaking = false;
-      window.speechSynthesis.cancel();
+  // Question generators and other logic
+  function generateAlphabetAfterBeforeQuestion(type) {
+    let letterIndex = Math.floor(Math.random() * alphabet.length);
+    let letter = alphabet[letterIndex];
+    let questionText = '';
+    let correctAnswer = '';
+    if(type === 'after') {
+      questionText = `What comes AFTER the letter <span aria-label="letter">${letter}</span>?`;
+      correctAnswer = alphabet[(letterIndex + 1) % alphabet.length];
+    } else {
+      questionText = `What comes BEFORE the letter <span aria-label="letter">${letter}</span>?`;
+      correctAnswer = alphabet[(letterIndex - 1 + alphabet.length) % alphabet.length];
     }
-
-    function playCorrectSound() {
-      correctSound.currentTime = 0;
-      correctSound.play();
+    let options = new Set();
+    options.add(correctAnswer);
+    while(options.size < 4) {
+      let randLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+      if(!options.has(randLetter) && randLetter !== letter) options.add(randLetter);
     }
-
-    function playWrongSound() {
-      wrongSound.currentTime = 0;
-      wrongSound.play();
+    let arr = Array.from(options);
+    shuffleArray(arr);
+    return { questionText, correctAnswer, options: arr };
+  }
+  function generateAlphabetFillBlankQuestion() {
+    let startIndex = Math.floor(Math.random() * (alphabet.length - 3));
+    let seq = alphabet.slice(startIndex, startIndex + 3);
+    let missingIndex = 1 + Math.floor(Math.random() * 2);
+    let correctAnswer = seq[missingIndex];
+    let displaySeq = seq.map((l, i) => i === missingIndex ? '_' : l).join('');
+    let questionText = `Fill in the blank in: <span aria-label="letters">${displaySeq}</span>. What letter goes in the blank?`;
+    let options = new Set();
+    options.add(correctAnswer);
+    while(options.size < 4) {
+      let randLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+      if(!options.has(randLetter) && !seq.includes(randLetter)) options.add(randLetter);
     }
-
-    // Generate a question object with correct answer and 3 wrong options
-    function generateQuestion() {
-      // Pick a random letter which has a next letter (A-Y)
-      let letterIndex = Math.floor(Math.random() * (alphabet.length - 1));
-      let letter = alphabet[letterIndex];
-      let correctAnswer = alphabet[letterIndex + 1];
-
-      // Prepare options with correct answer and 3 distractors
-      let options = new Set();
-      options.add(correctAnswer);
-      while(options.size < 4) {
-        let randomLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
-        if(randomLetter !== correctAnswer && randomLetter !== letter) {
-          options.add(randomLetter);
-        }
+    let arr = Array.from(options);
+    shuffleArray(arr);
+    return { questionText, correctAnswer, options: arr };
+  }
+  function generateMathAfterBeforeQuestion(type) {
+    let num = Math.floor(Math.random() * maxMathNumber) + 1;
+    let questionText = '';
+    let correctAnswer = '';
+    if(type === 'after') {
+      questionText = `What comes AFTER the number <span aria-label="number">${num}</span>?`;
+      correctAnswer = (num === maxMathNumber) ? (num - 1).toString() : (num + 1).toString();
+    } else {
+      questionText = `What comes BEFORE the number <span aria-label="number">${num}</span>?`;
+      correctAnswer = (num === 1) ? (num + 1).toString() : (num - 1).toString();
+    }
+    let options = new Set();
+    options.add(correctAnswer);
+    while(options.size < 4) {
+      let randNum = Math.floor(Math.random() * maxMathNumber) + 1;
+      if(!options.has(randNum.toString()) && randNum !== num) options.add(randNum.toString());
+    }
+    let arr = Array.from(options);
+    shuffleArray(arr);
+    return { questionText, correctAnswer, options: arr };
+  }
+  function generateMathFillBlankQuestion() {
+    let startNum = Math.floor(Math.random() * (maxMathNumber - 2)) + 1;
+    let seq = [startNum, startNum+1, startNum+2].map(n=>n.toString());
+    let missingIndex = Math.floor(Math.random() * 3);
+    let correctAnswer = seq[missingIndex];
+    let displaySeq = seq.map((n,i)=>i===missingIndex?'_':n).join('');
+    let questionText = `Fill in the blank in: <span aria-label="numbers">${displaySeq}</span>. What number goes in the blank?`;
+    let options = new Set();
+    options.add(correctAnswer);
+    while(options.size < 4) {
+      let randNum = Math.floor(Math.random() * maxMathNumber) + 1;
+      if(!options.has(randNum.toString()) && !seq.includes(randNum.toString())) options.add(randNum.toString());
+    }
+    let arr = Array.from(options);
+    shuffleArray(arr);
+    return { questionText, correctAnswer, options: arr };
+  }
+  function shuffleArray(arr) {
+    for(let i = arr.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+  function resetState() {
+    feedbackEl.textContent = '';
+    nextBtn.style.display = 'none';
+    optionsEl.innerHTML = '';
+  }
+  function updateScoreboard() {
+    scoreboardEl.textContent = `Score: ${score} / ${TOTAL_QUESTIONS}`;
+  }
+  function updateCurrentQuestionNumber() {
+    currentQuestionNumberEl.textContent = `Question ${totalQuestions + 1} of ${TOTAL_QUESTIONS}`;
+  }
+  function handleOptionClick(e) {
+    const selectedBtn = e.target;
+    const selectedAnswer = selectedBtn.dataset.letter;
+    Array.from(optionsEl.children).forEach(btn => {
+      btn.disabled = true;
+      if(btn.dataset.letter === currentQuestion.correctAnswer) {
+        btn.classList.add('correct', 'bounce');
       }
-
-      // Shuffle options
-      options = Array.from(options);
-      for (let i = options.length -1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [options[i], options[j]] = [options[j], options[i]];
-      }
-
-      return {
-        letter,
-        questionText: `What comes after the letter <span aria-label="letter">${letter}</span>?`,
-        correctAnswer,
-        options
-      };
+    });
+    if(selectedAnswer === currentQuestion.correctAnswer) {
+      feedbackEl.textContent = "Good job! That's correct 🎉";
+      selectedBtn.classList.add('correct', 'bounce');
+      score++;
+      playCorrectSound();
+    } else {
+      feedbackEl.textContent = `Oops! The correct answer is "${currentQuestion.correctAnswer}"`;
+      selectedBtn.classList.add('incorrect');
+      playWrongSound();
     }
-
-    function resetState() {
-      feedbackEl.textContent = '';
-      nextBtn.style.display = 'none';
-      optionsEl.innerHTML = '';
-    }
-
-    function updateScoreboard() {
-      scoreboardEl.textContent = `Score: ${score} / ${totalQuestions}`;
-    }
-
-    function handleOptionClick(e) {
-      const selectedBtn = e.target;
-      const selectedAnswer = selectedBtn.dataset.letter;
-
-      // Disable all buttons after selection
-      Array.from(optionsEl.children).forEach(btn => {
-        btn.disabled = true;
-        if (btn.dataset.letter === currentQuestion.correctAnswer) {
-          btn.classList.add('correct', 'bounce');
-        }
-      });
-
-      if(selectedAnswer === currentQuestion.correctAnswer) {
-        feedbackEl.textContent = "Good job! That's correct 🎉";
-        selectedBtn.classList.add('correct', 'bounce');
-        score++;
-        playCorrectSound();
-      } else {
-        feedbackEl.textContent = `Oops! The correct answer is "${currentQuestion.correctAnswer}"`;
-        selectedBtn.classList.add('incorrect');
-        playWrongSound();
-      }
-      totalQuestions++;
-      updateScoreboard();
+    totalQuestions++;
+    updateScoreboard();
+    if(totalQuestions >= TOTAL_QUESTIONS) {
+      endQuiz();
+    } else {
       nextBtn.style.display = 'inline-block';
     }
-
-    function showQuestion() {
-      resetState();
-      currentQuestion = generateQuestion();
-      questionEl.innerHTML = currentQuestion.questionText;
-
-      currentQuestion.options.forEach(letterOpt => {
-        const btn = document.createElement('button');
-        btn.classList.add('option-btn');
-        btn.textContent = letterOpt;
-        btn.setAttribute('data-letter', letterOpt);
-        btn.setAttribute('role', 'listitem');
-        btn.setAttribute('aria-label', `Option ${letterOpt}`);
-        btn.addEventListener('click', handleOptionClick);
-        optionsEl.appendChild(btn);
-      });
+  }
+  function showAlphabetQuestion() {
+    updateCurrentQuestionNumber();
+    resetState();
+    if(userData.quizType === 'alphabet-after' || userData.quizType === 'alphabet-before') {
+      currentQuestion = generateAlphabetAfterBeforeQuestion(userData.quizType.split('-')[1]);
+    } else if(userData.quizType === 'alphabet-fill-blank') {
+      currentQuestion = generateAlphabetFillBlankQuestion();
+    } else {
+      return;
     }
-
-    nextBtn.addEventListener('click', () => {
-      showQuestion();
+    questionEl.innerHTML = currentQuestion.questionText;
+    currentQuestion.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.classList.add('option-btn');
+      btn.textContent = opt;
+      btn.setAttribute('data-letter', opt);
+      btn.setAttribute('role', 'listitem');
+      btn.setAttribute('aria-label', `Option ${opt}`);
+      btn.addEventListener('click', handleOptionClick);
+      optionsEl.appendChild(btn);
     });
-
-    // Start peaceful background voice on load
-    window.addEventListener('load', () => {
-      showQuestion();
-      startBackgroundVoice();
-    });
-
-    // Stop background voice when page is hidden to avoid annoyance
-    document.addEventListener('visibilitychange', () => {
-      if(document.hidden) {
-        stopBackgroundVoice();
-      } else {
-        startBackgroundVoice();
-      }
-    });
-
-    // PWA Service Worker registration
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(() => {
-            console.log('Service Worker registered');
-          })
-          .catch(err => {
-            console.log('Service Worker registration failed:', err);
-          });
-      });
+  }
+  function showMathQuestion() {
+    updateCurrentQuestionNumber();
+    resetState();
+    if(userData.quizType === 'math-after' || userData.quizType === 'math-before') {
+      currentQuestion = generateMathAfterBeforeQuestion(userData.quizType.split('-')[1]);
+    } else if(userData.quizType === 'math-fill-blank') {
+      currentQuestion = generateMathFillBlankQuestion();
+    } else {
+      return;
     }
-  })();
+    questionEl.innerHTML = currentQuestion.questionText;
+    currentQuestion.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.classList.add('option-btn');
+      btn.textContent = opt;
+      btn.setAttribute('data-letter', opt);
+      btn.setAttribute('role', 'listitem');
+      btn.setAttribute('aria-label', `Option ${opt}`);
+      btn.addEventListener('click', handleOptionClick);
+      optionsEl.appendChild(btn);
+    });
+  }
+  nextBtn.addEventListener('click', () => {
+    if(userData.category === 'alphabet') {
+      showAlphabetQuestion();
+    } else if(userData.category === 'math') {
+      showMathQuestion();
+    }
+  });
+  function startAlphabetQuiz(type) {
+    userData.category = 'alphabet';
+    userData.quizType = 'alphabet-' + type;
+    greetingEl.textContent = `Hello, ${userData.name}! Let's learn alphabets (${type.toUpperCase()})!`;
+    score = 0;
+    totalQuestions = 0;
+    quizScreen.style.display = 'block';
+    nextBtn.style.display = 'none';
+    feedbackEl.textContent = '';
+    updateScoreboard();
+    showAlphabetQuestion();
+  }
+  function startAlphabetFillBlankQuiz() {
+    userData.category = 'alphabet';
+    userData.quizType = 'alphabet-fill-blank';
+    greetingEl.textContent = `Hello, ${userData.name}! Let's play Fill in the Blank (Alphabet)!`;
+    score = 0;
+    totalQuestions = 0;
+    quizScreen.style.display = 'block';
+    nextBtn.style.display = 'none';
+    feedbackEl.textContent = '';
+    updateScoreboard();
+    showAlphabetQuestion();
+  }
+  function startMathQuiz(type) {
+    userData.category = 'math';
+    userData.quizType = 'math-' + type;
+    greetingEl.textContent = `Hello, ${userData.name}! Let's do math quiz (${type.toUpperCase()})!`;
+    score = 0;
+    totalQuestions = 0;
+    quizScreen.style.display = 'block';
+    nextBtn.style.display = 'none';
+    feedbackEl.textContent = '';
+    updateScoreboard();
+    showMathQuestion();
+  }
+  function startMathFillBlankQuiz() {
+    userData.category = 'math';
+    userData.quizType = 'math-fill-blank';
+    greetingEl.textContent = `Hello, ${userData.name}! Let's play Fill in the Blank (Math)!`;
+    score = 0;
+    totalQuestions = 0;
+    quizScreen.style.display = 'block';
+    nextBtn.style.display = 'none';
+    feedbackEl.textContent = '';
+    updateScoreboard();
+    showMathQuestion();
+  }
+  restartBtn.addEventListener('click', () => {
+    finalScoreScreen.style.display = 'none';
+    welcomeScreen.style.display = 'block';
+    nameInput.value = '';
+    startBtn.disabled = true;
+    totalQuestions = 0;
+    score = 0;
+    userData.category = '';
+    userData.quizType = '';
+    userData.name = '';
+  });
+  function endQuiz() {
+    quizScreen.style.display = 'none';
+    finalScoreScreen.style.display = 'block';
+    let emotion = '';
+    let message = '';
+    if(score < 5) {
+      emotion = '😢';
+      message = `Don't worry, ${userData.name}. Your score is ${score} out of ${TOTAL_QUESTIONS}. Keep practicing and you'll get better!`;
+    } else if(score >= 5 && score <= 10) {
+      emotion = '🙂';
+      message = `Good job, ${userData.name}! You scored ${score} out of ${TOTAL_QUESTIONS}. Keep up the good work!`;
+    } else {
+      emotion = '🎉';
+      message = `Awesome, ${userData.name}! You scored ${score} out of ${TOTAL_QUESTIONS}! You're doing fantastic!`;
+    }
+    finalScoreMessage.textContent = message;
+    finalEmotion.textContent = emotion;
+  }
+  function playCorrectSound() {
+    correctSound.currentTime = 0;
+    correctSound.play();
+  }
+  function playWrongSound() {
+    wrongSound.currentTime = 0;
+    wrongSound.play();
+  }
+})();
 </script>
 </body>
 </html>
-
